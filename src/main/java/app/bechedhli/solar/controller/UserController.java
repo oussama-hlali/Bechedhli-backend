@@ -38,7 +38,19 @@ public class UserController {
 
     @PutMapping("/updateUser")
     public User updateUser(@RequestBody User user) {
-        return userRepository.save(user);
+        if (user.getId() == null) {
+            throw new RuntimeException("ID is required for update");
+        }
+        User existing = userRepository.findById(user.getId())
+                .orElseThrow(() -> new UserNotFoundException(user.getId()));
+        
+        existing.setNom(user.getNom());
+        existing.setPrenom(user.getPrenom());
+        existing.setEmail(user.getEmail());
+        existing.setTelephone(user.getTelephone());
+        existing.setUsername(user.getUsername());
+        
+        return userRepository.save(existing);
     }
 
     @PutMapping("/users/{id}")
