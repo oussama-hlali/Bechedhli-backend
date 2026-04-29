@@ -23,10 +23,10 @@ public class Piece {
     @Column(nullable = false)
     private Integer quantite = 0;
 
-    @Column(name = "prix_achat", nullable = false)
+    @Column(name = "prix_achat")
     private BigDecimal prixAchat;
 
-    @Column(name = "prix_vente", nullable = false)
+    @Column(name = "prix_vente")
     private BigDecimal prixVente;
 
     @Column(name = "stock_min")

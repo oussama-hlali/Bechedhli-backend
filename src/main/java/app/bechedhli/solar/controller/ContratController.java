@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-
 @RequestMapping("/contrats")
 @RequiredArgsConstructor
 public class ContratController {
