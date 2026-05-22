@@ -96,4 +96,5 @@ public class PieceGraphQLController {
         pieceRepository.deleteById(id);
         return true;
     }
+
 }
