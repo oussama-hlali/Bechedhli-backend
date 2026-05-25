@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Piece {
 
     @Id
@@ -20,7 +21,7 @@ public class Piece {
 
     private String description;
 
-    @Column(nullable = false)
+    @Builder.Default
     private Integer quantite = 0;
 
     @Column(name = "prix_achat")
@@ -30,9 +31,20 @@ public class Piece {
     private BigDecimal prixVente;
 
     @Column(name = "stock_min")
+    @Builder.Default
     private Integer stockMin = 10;
 
     private String reference;
 
     private String categorie;
+
+    private String name;
+    private String category;
+    @Builder.Default
+    private Integer qty = 0;
+    @Builder.Default
+    private Integer minQty = 10;
+    private Double price;
+    private String supplier;
+    private String location;
 }

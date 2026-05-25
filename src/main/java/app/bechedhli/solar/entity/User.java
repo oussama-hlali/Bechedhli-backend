@@ -9,11 +9,14 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
 
     @Column(nullable = false)
     private String nom;
@@ -21,27 +24,33 @@ public class User {
     @Column(nullable = false)
     private String prenom;
 
-    @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(nullable = false)
     private String password;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String email;
 
     private String telephone;
+    private String phone;
 
-    @Column(nullable = false)
+    @Builder.Default
     private boolean actif = true;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
+    @Builder.Default
+    private String role = "EMPLOYE";
 
-    @ManyToOne
-    @JoinColumn(name = "contrat_id")
-    private Contrat contrat;
+    private String dept;
+
+    @Builder.Default
+    private String status = "active";
+
+    private Double salary;
+
+    private LocalDate joinDate;
+
+    @Enumerated(EnumType.STRING)
+    private Role userRole;
 
     @Column(name = "date_creation")
     private LocalDate dateCreation;
@@ -52,8 +61,6 @@ public class User {
     }
 
     public enum Role {
-        ADMIN,
-        TECHNICIEN,
-        CLIENT
+        ADMIN, TECHNICIEN, CLIENT, EMPLOYE
     }
 }

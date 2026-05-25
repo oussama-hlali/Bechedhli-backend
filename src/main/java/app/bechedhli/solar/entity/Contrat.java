@@ -20,11 +20,8 @@ public class Contrat {
     private String typeContrat;
 
     private LocalDate dateDebut;
-
     private LocalDate dateFin;
-
     private Double salaireBrut;
-
     private String description;
 
     @Column(name = "created_at")

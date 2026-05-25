@@ -1,27 +1,49 @@
 type Query {
     allUsers: [User]
-    userById(id: ID!): User
-    usersByRole(role: String!): [User]
+    userById(id: ID): User
+    userByUsername(username: String): User
     allPieces: [Piece]
-    pieceById(id: ID!): Piece
-    piecesByCategorie(categorie: String!): [Piece]
-    lowStockPieces: [Piece]
+    pieceById(id: ID): Piece
     allInterventions: [Intervention]
-    interventionById(id: ID!): Intervention
-    interventionsByClient(clientId: Long!): [Intervention]
-    interventionsByTechnician(technicianId: Long!): [Intervention]
-    interventionsByStatut(statut: String!): [Intervention]
+    interventionById(id: ID): Intervention
 }
 
 type Mutation {
-    createUser(nom: String!, prenom: String!, username: String!, password: String!, email: String!, telephone: String, role: String!): User
-    updateUser(id: ID!, nom: String, prenom: String, email: String, telephone: String): User
-    deleteUser(id: ID!): Boolean
-    createPiece(nom: String!, description: String, quantite: Int, prixAchat: Float, prixVente: Float, stockMin: Int, reference: String, categorie: String): Piece
-    updatePiece(id: ID!, nom: String, description: String, quantite: Int, prixAchat: Float, prixVente: Float, stockMin: Int, reference: String, categorie: String): Piece
-    deletePiece(id: ID!): Boolean
-    createIntervention(clientId: Long!, technicianId: Long, datePrevue: String, description: String, adresse: String, prix: Float): Intervention
-    startIntervention(id: ID!): Intervention
-    finishIntervention(id: ID!): Intervention
-    deleteIntervention(id: ID!): Boolean
+    createUser(nom: String, prenom: String, username: String, password: String, email: String, telephone: String, role: String): User
+    createPiece(nom: String, description: String, quantite: Int, prixAchat: Float, prixVente: Float, stockMin: Int, reference: String, categorie: String): Piece
+    createIntervention(clientId: ID, technicienId: ID, description: String, adresse: String, prix: Float, statut: String): Intervention
+}
+
+type User {
+    id: ID
+    nom: String
+    prenom: String
+    username: String
+    email: String
+    telephone: String
+    actif: Boolean
+    role: String
+    dateCreation: String
+}
+
+type Piece {
+    id: ID
+    nom: String
+    description: String
+    quantite: Int
+    prixAchat: Float
+    prixVente: Float
+    stockMin: Int
+    reference: String
+    categorie: String
+}
+
+type Intervention {
+    id: ID
+    client: User
+    technician: User
+    statut: String
+    description: String
+    adresse: String
+    prix: Float
 }

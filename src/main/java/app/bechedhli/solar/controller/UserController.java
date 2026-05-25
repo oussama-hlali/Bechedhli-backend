@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -38,18 +37,13 @@ public class UserController {
 
     @PutMapping("/updateUser")
     public User updateUser(@RequestBody User user) {
-        if (user.getId() == null) {
-            throw new RuntimeException("ID is required for update");
-        }
         User existing = userRepository.findById(user.getId())
                 .orElseThrow(() -> new UserNotFoundException(user.getId()));
-        
+        existing.setName(user.getName());
         existing.setNom(user.getNom());
         existing.setPrenom(user.getPrenom());
         existing.setEmail(user.getEmail());
         existing.setTelephone(user.getTelephone());
-        existing.setUsername(user.getUsername());
-        
         return userRepository.save(existing);
     }
 
@@ -57,6 +51,7 @@ public class UserController {
     public User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
         return userRepository.findById(id)
                 .map(user -> {
+                    user.setName(newUser.getName());
                     user.setNom(newUser.getNom());
                     user.setPrenom(newUser.getPrenom());
                     user.setEmail(newUser.getEmail());

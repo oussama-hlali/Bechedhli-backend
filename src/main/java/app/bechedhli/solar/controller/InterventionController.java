@@ -6,7 +6,6 @@ import app.bechedhli.solar.exceptions.InterventionNotFoundException;
 import app.bechedhli.solar.repository.InterventionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -37,14 +36,14 @@ public class InterventionController {
                 .orElseThrow(() -> new InterventionNotFoundException(id));
     }
 
-@GetMapping("/interventionsByClient")
+    @GetMapping("/interventionsByClient")
     public List<Intervention> getInterventionsByClient(@RequestParam("clientId") Long clientId) {
-        return interventionRepository.findByClient_id(clientId);
+        return interventionRepository.findByClientId(clientId);
     }
 
     @GetMapping("/interventionsByTechnicien")
     public List<Intervention> getInterventionsByTechnicien(@RequestParam("technicienId") Long technicienId) {
-        return interventionRepository.findByTechnician_id(technicienId);
+        return interventionRepository.findByTechnicianId(technicienId);
     }
 
     @GetMapping("/interventionsByStatut")
