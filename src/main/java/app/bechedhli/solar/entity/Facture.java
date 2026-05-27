@@ -17,7 +17,12 @@ public class Facture {
     private Long id;
 
     private String numeroFacture;
+    private Long clientId;
+    private Long dossierId;
+    private String numBL;
+    private LocalDate date;
     private LocalDate dateFacture;
+    private LocalDate echeance;
     private String client;
     private Double montantHT;
     private Double montantTTC;
@@ -29,6 +34,10 @@ public class Facture {
 
     @Builder.Default
     private String status = "NON_PAYEE";
+
+    private Double tva;
+    private Double remise;
+    private String notes;
 
     @Column(columnDefinition = "TEXT")
     private String paymentsJson;

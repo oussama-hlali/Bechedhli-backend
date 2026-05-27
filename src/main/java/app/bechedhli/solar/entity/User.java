@@ -18,10 +18,8 @@ public class User {
 
     private String name;
 
-    @Column(nullable = false)
     private String nom;
 
-    @Column(nullable = false)
     private String prenom;
 
     private String username;
@@ -57,6 +55,8 @@ public class User {
 
     @PrePersist
     protected void onCreate() {
+        if (nom == null) nom = name;
+        if (prenom == null) prenom = "";
         dateCreation = LocalDate.now();
     }
 

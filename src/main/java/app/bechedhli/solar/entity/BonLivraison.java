@@ -16,7 +16,11 @@ public class BonLivraison {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String blId;
     private String numeroBL;
+    private Long clientId;
+    private String type;
+    private LocalDate date;
     private LocalDate dateBL;
     private Double montantHT;
     private Double montantTTC;
@@ -27,6 +31,10 @@ public class BonLivraison {
     private String status = "EN_ATTENTE";
 
     private Boolean invoiced;
+    private String puissance;
+    private String refSteg;
+    private String transporteurName;
+    private String transporteurMatricule;
 
     @Column(columnDefinition = "TEXT")
     private String itemsJson;

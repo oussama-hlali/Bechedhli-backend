@@ -31,6 +31,8 @@ public class ClientController {
     @PostMapping
     public User create(@RequestBody User user) {
         user.setUserRole(User.Role.CLIENT);
+        if (user.getNom() == null) user.setNom(user.getName());
+        if (user.getPrenom() == null) user.setPrenom("");
         return userRepository.save(user);
     }
 

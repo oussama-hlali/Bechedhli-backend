@@ -30,6 +30,7 @@ public class StockController {
 
     @PostMapping
     public Piece create(@RequestBody Piece piece) {
+        if (piece.getNom() == null) piece.setNom(piece.getName());
         return pieceRepository.save(piece);
     }
 

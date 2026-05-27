@@ -16,7 +16,6 @@ public class Piece {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String nom;
 
     private String description;
@@ -47,4 +46,10 @@ public class Piece {
     private Double price;
     private String supplier;
     private String location;
+
+    @PrePersist
+    @PreUpdate
+    protected void onSave() {
+        if (nom == null) nom = name;
+    }
 }

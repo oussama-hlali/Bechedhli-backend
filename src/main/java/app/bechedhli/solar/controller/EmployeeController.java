@@ -30,6 +30,8 @@ public class EmployeeController {
 
     @PostMapping
     public User create(@RequestBody User user) {
+        if (user.getNom() == null) user.setNom(user.getName());
+        if (user.getPrenom() == null) user.setPrenom("");
         return userRepository.save(user);
     }
 
