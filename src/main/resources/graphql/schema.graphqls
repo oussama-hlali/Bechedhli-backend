@@ -1,0 +1,288 @@
+# ---------- Employee ----------
+type Employee {
+    id: ID!
+    name: String!
+    role: String
+    dept: String
+    status: String
+    phone: String
+    email: String
+    salary: Float
+    joinDate: String
+}
+
+input EmployeeInput {
+    name: String!
+    role: String
+    dept: String
+    status: String
+    phone: String
+    email: String
+    salary: Float
+    joinDate: String
+}
+
+# ---------- StockItem ----------
+type StockItem {
+    id: ID!
+    name: String!
+    category: String
+    qty: Int
+    minQty: Int
+    price: Float
+    supplier: String
+    location: String
+}
+
+input StockItemInput {
+    name: String!
+    category: String
+    qty: Int
+    minQty: Int
+    price: Float
+    supplier: String
+    location: String
+}
+
+# ---------- ClientOrder ----------
+type ClientOrder {
+    id: ID!
+    items: [String!]
+    total: Float
+    received: Boolean
+    receivedDate: String
+    orderDate: String
+}
+
+input ClientOrderInput {
+    items: [String!]
+    total: Float
+    received: Boolean
+    receivedDate: String
+    orderDate: String
+}
+
+# ---------- Client ----------
+type Client {
+    id: ID!
+    name: String!
+    cin: String
+    phone: String
+    address: String
+    createdAt: String
+    orders: [ClientOrder!]
+}
+
+input ClientInput {
+    name: String!
+    cin: String
+    phone: String
+    address: String
+    createdAt: String
+    orders: [ClientOrderInput!]
+}
+
+# ---------- DeliveryNoteItem ----------
+type DeliveryNoteItem {
+    id: ID!
+    n: Int
+    des: String
+    marque: String
+    cat: String
+    qty: Int
+    note: String
+}
+
+input DeliveryNoteItemInput {
+    n: Int
+    des: String
+    marque: String
+    cat: String
+    qty: Int
+    note: String
+}
+
+# ---------- DeliveryNote ----------
+type DeliveryNote {
+    id: ID!
+    clientId: ID
+    type: String
+    date: String
+    status: String
+    invoiced: Boolean
+    puissance: String
+    refSteg: String
+    transporteurName: String
+    transporteurMatricule: String
+    items: [DeliveryNoteItem!]
+}
+
+input DeliveryNoteInput {
+    id: ID!
+    clientId: ID
+    type: String
+    date: String
+    status: String
+    invoiced: Boolean
+    puissance: String
+    refSteg: String
+    transporteurName: String
+    transporteurMatricule: String
+    items: [DeliveryNoteItemInput!]
+}
+
+# ---------- StegDossier ----------
+type StegDossier {
+    id: ID!
+    clientId: ID
+    refSteg: String
+    puissance: String
+    status: String
+    createdAt: String
+    submittedDate: String
+    approvedDate: String
+    notes: String
+    docs: JSON
+}
+
+input StegDossierInput {
+    clientId: ID
+    refSteg: String
+    puissance: String
+    status: String
+    createdAt: String
+    submittedDate: String
+    approvedDate: String
+    notes: String
+    docs: JSON
+}
+
+# ---------- InvoiceItem ----------
+type InvoiceItem {
+    id: ID!
+    desc: String
+    qty: Int
+    unit: String
+    prix: Float
+}
+
+input InvoiceItemInput {
+    desc: String
+    qty: Int
+    unit: String
+    prix: Float
+}
+
+# ---------- Payment ----------
+type Payment {
+    id: ID!
+    date: String
+    montant: Float
+    mode: String
+    ref: String
+}
+
+input PaymentInput {
+    date: String
+    montant: Float
+    mode: String
+    ref: String
+}
+
+# ---------- Invoice ----------
+type Invoice {
+    id: ID!
+    clientId: ID
+    dossierId: ID
+    numBL: String
+    date: String
+    echeance: String
+    status: String
+    tva: Float
+    remise: Float
+    notes: String
+    items: [InvoiceItem!]
+    payments: [Payment!]
+}
+
+input InvoiceInput {
+    id: ID!
+    clientId: ID
+    dossierId: ID
+    numBL: String
+    date: String
+    echeance: String
+    status: String
+    tva: Float
+    remise: Float
+    notes: String
+    items: [InvoiceItemInput!]
+    payments: [PaymentInput!]
+}
+
+# ---------- JSON scalar ----------
+scalar JSON
+
+# ---------- DashboardMetrics ----------
+type DashboardMetrics {
+    totalEmployees: Int!
+    activeEmployees: Int!
+    totalStockValue: Float!
+    lowStockCount: Int!
+    totalDeliveryNotes: Int!
+    deliveredDeliveryNotes: Int!
+    stegApproved: Int!
+    stegTotal: Int!
+    totalBilled: Float!
+    totalCollected: Float!
+    totalOutstanding: Float!
+}
+
+# ---------- StockMutation ----------
+type StockMutation {
+    stockItemId: ID!
+    name: String!
+    decrement: Int!
+    remaining: Int!
+}
+
+# ---------- Queries ----------
+type Query {
+    employees: [Employee!]!
+    employee(id: ID!): Employee
+    stockItems: [StockItem!]!
+    stockItem(id: ID!): StockItem
+    clients: [Client!]!
+    client(id: ID!): Client
+    deliveryNotes: [DeliveryNote!]!
+    deliveryNote(id: ID!): DeliveryNote
+    stegDossiers: [StegDossier!]!
+    stegDossier(id: ID!): StegDossier
+    invoices: [Invoice!]!
+    invoice(id: ID!): Invoice
+    dashboardMetrics: DashboardMetrics!
+}
+
+# ---------- Mutations ----------
+type Mutation {
+    createEmployee(input: EmployeeInput!): Employee!
+    updateEmployee(id: ID!, input: EmployeeInput!): Employee!
+    deleteEmployee(id: ID!): Boolean!
+    createStockItem(input: StockItemInput!): StockItem!
+    updateStockItem(id: ID!, input: StockItemInput!): StockItem!
+    deleteStockItem(id: ID!): Boolean!
+    createClient(input: ClientInput!): Client!
+    updateClient(id: ID!, input: ClientInput!): Client!
+    deleteClient(id: ID!): Boolean!
+    createDeliveryNote(input: DeliveryNoteInput!): DeliveryNote!
+    updateDeliveryNote(id: ID!, input: DeliveryNoteInput!): DeliveryNote!
+    deleteDeliveryNote(id: ID!): Boolean!
+    createStegDossier(input: StegDossierInput!): StegDossier!
+    updateStegDossier(id: ID!, input: StegDossierInput!): StegDossier!
+    deleteStegDossier(id: ID!): Boolean!
+    createInvoice(input: InvoiceInput!): Invoice!
+    updateInvoice(id: ID!, input: InvoiceInput!): Invoice!
+    deleteInvoice(id: ID!): Boolean!
+    deliverBL(id: ID!): DeliveryNote!
+    generateInvoiceFromBL(blId: ID!): Invoice!
+}
