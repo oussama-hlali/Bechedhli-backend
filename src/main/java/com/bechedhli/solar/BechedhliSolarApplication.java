@@ -9,4 +9,5 @@ public class BechedhliSolarApplication {
     public static void main(String[] args) {
         SpringApplication.run(BechedhliSolarApplication.class, args);
     }
+
 }
